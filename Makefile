@@ -1,4 +1,5 @@
 CXX = emcc
+OUTPUT_DIR = build
 OUTPUT = imgui.js
 IMGUI_DIR:=../imgui
 
@@ -14,7 +15,10 @@ USE_WASM = -s WASM=1
 all: $(SOURCES) $(OUTPUT)
 
 $(OUTPUT): $(SOURCES) 
-	$(CXX)  $(SOURCES) -std=c++11 -o $(OUTPUT) $(LIBS) $(WEBGL_VER) -O2 --preload-file data $(USE_WASM) -I$(IMGUI_DIR)
+	mkdir -p $(OUTPUT_DIR)
+	$(CXX)  $(SOURCES) -std=c++11 -o $(OUTPUT_DIR)/$(OUTPUT) $(LIBS) $(WEBGL_VER) -O2 --preload-file data $(USE_WASM) -I$(IMGUI_DIR)
+	cp imgui.html $(OUTPUT_DIR)/imgui.html
+	cp -r data $(OUTPUT_DIR)/data
 
 clean:
-	rm -f $(OUTPUT)
+	rm -rf $(OUTPUT_DIR)
