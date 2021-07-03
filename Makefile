@@ -1,12 +1,13 @@
 CXX = emcc
 OUTPUT_DIR = build
-BUILD_DIR = tmp_build
+BUILD_DIR = build_tmp
+SRC_DIR = src
 OUTPUT_JS = ${OUTPUT_DIR}/imgui.js
 OUTPUT_HTML = ${OUTPUT_DIR}/imgui.html
 IMGUI_DIR:=imgui
 
-LOCAL_SOURCES = main.cpp imgui_impl_sdl.cpp imgui_impl_opengl3.cpp
-LOCAL_OBJ = $(addprefix $(BUILD_DIR)/src/,$(LOCAL_SOURCES:%.cpp=%.o))
+LOCAL_SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+LOCAL_OBJ = $(addprefix $(BUILD_DIR)/,$(LOCAL_SOURCES:%.cpp=%.o))
 IMGUI_SOURCES = $(wildcard $(IMGUI_DIR)/*.cpp)
 IMGUI_OBJ = $(addprefix $(BUILD_DIR)/,$(IMGUI_SOURCES:%.cpp=%.o))
 
@@ -22,7 +23,7 @@ $(BUILD_DIR)/imgui/%.o: $(IMGUI_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $< -o $@ -c $(COMPILER_ARGS) -I$(IMGUI_DIR)
 
-$(BUILD_DIR)/src/%.o: %.cpp
+$(BUILD_DIR)/src/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $< -o $@ -c $(COMPILER_ARGS) -I$(IMGUI_DIR)
 
