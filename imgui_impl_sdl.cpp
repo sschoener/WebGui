@@ -58,6 +58,10 @@
 #include "TargetConditionals.h"
 #endif
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #define SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE    SDL_VERSION_ATLEAST(2,0,4)
 #define SDL_HAS_VULKAN                      SDL_VERSION_ATLEAST(2,0,6)
 
@@ -82,19 +86,39 @@ static ImGui_ImplSDL2_Data* ImGui_ImplSDL2_GetBackendData()
     return ImGui::GetCurrentContext() ? (ImGui_ImplSDL2_Data*)ImGui::GetIO().BackendPlatformUserData : NULL;
 }
 
+EM_JS(void, copy, (const char* str), {
+    return Asyncify.handleAsync(async () => {
+        document.getElementById("clipping").focus();
+        const rtn = await navigator.clipboard.writeText(UTF8ToString(str));
+        document.getElementById("canvas").focus();
+    });
+});
+
+EM_JS(char*, paste, (), {
+    return Asyncify.handleAsync(async () => {
+        document.getElementById("clipping").focus();
+        const str = await navigator.clipboard.readText();
+        document.getElementById("canvas").focus();
+        const size = lengthBytesUTF8(str) + 1;
+        const rtn = _malloc(size);
+        stringToUTF8(str, rtn, size);
+        return rtn;
+    });
+});
+
 // Functions
 static const char* ImGui_ImplSDL2_GetClipboardText(void*)
 {
     ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
     if (bd->ClipboardTextData)
-        SDL_free(bd->ClipboardTextData);
-    bd->ClipboardTextData = SDL_GetClipboardText();
+        free(bd->ClipboardTextData);
+    bd->ClipboardTextData = paste();
     return bd->ClipboardTextData;
 }
 
 static void ImGui_ImplSDL2_SetClipboardText(void*, const char* text)
 {
-    SDL_SetClipboardText(text);
+    copy(text);
 }
 
 // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.

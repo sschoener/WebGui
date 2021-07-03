@@ -10,7 +10,7 @@
         margin: 0;
         padding: none;
       }
-      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; z-index: 1000; }
       div.emscripten { text-align: center; }
       div.emscripten_border { border: none; }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
@@ -21,6 +21,7 @@
 
     <div class="emscripten_border">
       <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+      <textarea id="clipping" style="position:fixed;width:0;height:0;border:0" aria-hidden="true"></textarea>
     </div>
 
     <script type='text/javascript'>
