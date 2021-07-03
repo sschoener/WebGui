@@ -148,7 +148,8 @@ extern "C" int main(int argc, char** argv)
 
         imgui = ImGui::GetCurrentContext();
     }
-    emscripten_set_main_loop(update, 0, 1);
     resizeCanvas();
+    SDL_SetWindowSize(g_window, canvas_get_width(), canvas_get_height());
+    emscripten_set_main_loop(update, 0, 1);
     return 0;
 }
