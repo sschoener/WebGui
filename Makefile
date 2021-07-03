@@ -4,7 +4,7 @@ BUILD_DIR = tmp_build
 IMGUI_BUILD_DIR = imgui_build
 OUTPUT_JS = ${OUTPUT_DIR}/imgui.js
 OUTPUT_HTML = ${OUTPUT_DIR}/imgui.html
-IMGUI_DIR:=../imgui
+IMGUI_DIR:=imgui
 
 LOCAL_SOURCES = main.cpp imgui_impl_sdl.cpp imgui_impl_opengl3.cpp
 LOCAL_OBJ = $(addprefix $(BUILD_DIR)/,$(LOCAL_SOURCES:%.cpp=%.o))
