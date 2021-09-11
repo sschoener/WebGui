@@ -9,3 +9,6 @@ This repository builds on @jnmaloney's [WebGui](https://github.com/jnmaloney/Web
 
 # Building the application
 Make sure that you have emscripten installed, as well as SDL2, Freetype, and OpenGL3. Then just run `make`.
+
+# Running the application
+To run the application, you need to host a webserver (e.g. using `http-server` on linux) and open the resulting html page from the `build` folder in a browser. The webserver is necessary to allow the program to load files like the font used.
