@@ -1,5 +1,5 @@
 # WebGui
-WebGui is an example showing how to use the IMGUI user interface in a web browser. This example uses Emscripted to compile c++ into Web Assembly (WASM) binaries that can be run as an application in the browser.
+WebGui is an example showing how to use the IMGUI user interface in a web browser. This example uses Emscripten to compile c++ into Web Assembly (WASM) binaries that can be run as an application in the browser.
 This repository uses a submodule for imgui, so please use `git submodule update --init --recursive` after cloning.
 
 This repository builds on @jnmaloney's [WebGui](https://github.com/jnmaloney/WebGui). There are a few distinguishing factors:
