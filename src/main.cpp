@@ -11,8 +11,6 @@
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
-#include <iostream>
-
 
 SDL_Window* g_window;
 SDL_GLContext g_gl_context;
