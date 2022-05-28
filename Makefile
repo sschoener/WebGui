@@ -9,7 +9,7 @@ OUTPUT_HTML = ${OUTPUT_DIR}/imgui.html
 LOCAL_SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 IMGUI_SOURCES = $(wildcard $(IMGUI_DIR)/*.cpp)
 
-SOURCES = $(LOCAL_SOURCES) $(IMGUI_SOURCES)
+SOURCES = $(LOCAL_SOURCES) $(IMGUI_SOURCES) $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
 OBJ = $(addprefix $(BUILD_DIR)/,$(SOURCES:%.cpp=%.o))
 
 SHARED_ARGS = -O3 -s USE_SDL=2 -std=c++11
@@ -22,7 +22,7 @@ all: $(OUTPUT_JS) $(OUTPUT_HTML)
 
 $(BUILD_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
-	$(CXX) $< -o $@ -c $(COMPILER_ARGS) -I$(IMGUI_DIR)
+	$(CXX) $< -o $@ -c $(COMPILER_ARGS) -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
 
 $(OUTPUT_HTML): imgui.html 
 	cp $< $@
