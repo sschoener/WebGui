@@ -64,4 +64,7 @@ void Wipe(PersistentLinearAllocator& allocator)
         free(Block(header));
         header = tmp;
     }
+    allocator.Block = nullptr;
+    allocator.Offset = 0;
+    allocator.CurrentBlockSize = 0;
 } 
