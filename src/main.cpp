@@ -51,12 +51,6 @@ void update()
         //    done = true;
     }
 
-    static int x = 0;
-
-    x++;
-    if (x > 255)
-        x = 0;
-
     SDL_GL_MakeCurrent(g_window, g_gl_context);
 
     // Start the Dear ImGui frame
@@ -94,7 +88,7 @@ void update()
     // Rendering
     ImGui::Render();
     glViewport(0, 0, width, height);
-    glClearColor(0, x / 255.0 / 2, 0, 1);
+    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     SDL_GL_SwapWindow(g_window);
