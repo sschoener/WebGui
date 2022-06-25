@@ -16,8 +16,7 @@ SDL_Window* g_window;
 SDL_GLContext g_gl_context;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 ImGuiContext* imgui = 0;
-bool show_demo_window = true;
-bool show_another_window = false;
+bool show_demo_window = false;
 
 EM_JS(int, canvas_get_width, (), {
     return Module.canvas.width;
@@ -89,16 +88,6 @@ void update()
         ImGui::Text("counter = %d", counter);
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        ImGui::End();
-    }
-
-    // 3. Show another simple window.
-    if (show_another_window)
-    {
-        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        ImGui::Text("Hello from another window!");
-        if (ImGui::Button("Close Me"))
-            show_another_window = false;
         ImGui::End();
     }
 
